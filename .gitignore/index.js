@@ -160,6 +160,28 @@ client.on('message', message => {
 
 })
 
+client.on("guildCreate", async guild => {
+    let embed = new Discord.RichEmbed()
+        .setThumbnail(guild.iconURL)
+        .setColor('#2FD435')
+        .setTitle("ðŸ“¥ Nouveau Serveur")
+        .setDescription(`ã€“ã€“ã€“ã€“ã€“ã€“ã€“ã€“ã€“ã€“ã€“ã€“ã€“ã€“ã€“ã€“ã€“ã€“ã€“ã€“`)
+        .addField(`**${guild.name}** vient d'ajouter __${client.user.username}__ Ã  sa liste de bot !\nLe bot est maintenant prÃ©sent sur **${client.guilds.size}** serveurs.\n\nLe crÃ©ateur du serveur est : **${guild.owner.user.username}#${guild.owner.user.discriminator}** (${guild.owner.id}).`)
+        .setTimestamp()
+    client.channels.get("518710630044401665").send(embed)
+})
+
+client.on("guildDelete", async guild => {
+    let embed = new Discord.RichEmbed()
+        .setThumbnail(guild.iconURL)
+        .setColor('#FE0101')
+        .setTitle("ðŸ“¤ DÃ©part Serveur")
+        .setDescription(`ã€“ã€“ã€“ã€“ã€“ã€“ã€“ã€“ã€“ã€“ã€“ã€“ã€“ã€“ã€“ã€“ã€“ã€“ã€“ã€“`)
+        .addField(`**${guild.name}** vient de retirer __${client.user.username}__ Ã  sa liste de bot !\nLe bot est maintenant prÃ©sent sur **${client.guilds.size}** serveurs.\n\nLe crÃ©ateur du serveur est : **${guild.owner.user.username}#${guild.owner.user.discriminator}** (${guild.owner.id}).`)
+        .setTimestamp()
+    client.channels.get("518710630044401665").send(embed)
+})
+
 client.on('ready', async () => {
     client.user.setActivity(`17 Serveurs | !help`, {type: "WATCHING"});
 });
