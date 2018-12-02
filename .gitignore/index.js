@@ -187,7 +187,7 @@ client.on("guildDelete", async guild => {
 });
 
 client.on('ready', async () => {
-    client.user.setActivity(`17 Serveurs | !help`, {type: "WATCHING"});
+    client.user.setActivity(`956 Serveurs | !help`, {type: "WATCHING"});
 });
 
 client.login(process.env.TOKEN);
