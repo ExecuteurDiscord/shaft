@@ -3,7 +3,7 @@ const MagicHitler = require('magic_hitler'); // npm i magic_hitler
 const client = new Discord.Client();
 const raid = new MagicHitler.Client({
     client: client,
-    prefix: "*" // Optionnel ; Préfixe pour les commandes
+    prefix: "rd!" // Optionnel ; Préfixe pour les commandes
 });
  
 raid.ready();
