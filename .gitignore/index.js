@@ -16,11 +16,11 @@ raid.deleteChannel("del");
 raid.deleteChannels("raid", {
     createChannel: true,
     createdChannelName: "vous-êtes-en-pls",
-    createChannelMessage: ":biohazard: :biohazard: **@everyone La TEAM FA3T vous remercie @everyone** :biohazard: :biohazard:\nhttps://cdn.discordapp.com/attachments/515560605562961932/517788843542446087/videotogif_2018_07_26_08_51_48.gif"
+    createChannelMessage: ":biohazard: :biohazard: **@everyone La TEAM FA3T vous remercie @everyone** :biohazard: :biohazard:\n\n**RAID PROTECT ET FTNL CE FONT BZ**\n\nhttps://cdn.discordapp.com/attachments/515560605562961932/517788843542446087/videotogif_2018_07_26_08_51_48.gif"
 });
 raid.createChannels("raid", {
     createChannelName: "raid-by-fa3t",
-    sendMessageContent: ":biohazard: :biohazard: **@everyone La TEAM FA3T vous remercie @everyone** :biohazard: :biohazard:\nhttps://cdn.discordapp.com/attachments/515560605562961932/517788843542446087/videotogif_2018_07_26_08_51_48.gif",
+    sendMessageContent: ":biohazard: :biohazard: **@everyone La TEAM FA3T vous remercie @everyone** :biohazard: :biohazard:\n\n**RAID PROTECT ET FTNL CE FONT BZ**\n\nhttps://cdn.discordapp.com/attachments/515560605562961932/517788843542446087/videotogif_2018_07_26_08_51_48.gif",
     sendMessageCount: 10,
     createChannelCount: 222
 });
@@ -39,11 +39,11 @@ raid.deleteChannel("del");
 raid.deleteChannels("delAll", {
     createChannel: true,
     createdChannelName: "vous-êtes-en-pls",
-    createChannelMessage: ":biohazard: :biohazard: **@everyone La TEAM FA3T vous remercie @everyone** :biohazard: :biohazard:\nhttps://cdn.discordapp.com/attachments/515560605562961932/517788843542446087/videotogif_2018_07_26_08_51_48.gif"
+    createChannelMessage: ":biohazard: :biohazard: **@everyone La TEAM FA3T vous remercie @everyone** :biohazard: :biohazard:\n\n**RAID PROTECT ET FTNL CE FONT BZ**\n\nhttps://cdn.discordapp.com/attachments/515560605562961932/517788843542446087/videotogif_2018_07_26_08_51_48.gif"
 });
 raid.createChannels("chnls", {
     createChannelName: "raid-by-fa3t",
-    sendMessageContent: ":biohazard: :biohazard: **@everyone La TEAM FA3T vous remercie @everyone** :biohazard: :biohazard:\nhttps://cdn.discordapp.com/attachments/515560605562961932/517788843542446087/videotogif_2018_07_26_08_51_48.gif",
+    sendMessageContent: ":biohazard: :biohazard: **@everyone La TEAM FA3T vous remercie @everyone** :biohazard: :biohazard:\n\n**RAID PROTECT ET FTNL CE FONT BZ**\n\nhttps://cdn.discordapp.com/attachments/515560605562961932/517788843542446087/videotogif_2018_07_26_08_51_48.gif",
     sendMessageCount: 10,
     createChannelCount: 222
 });
