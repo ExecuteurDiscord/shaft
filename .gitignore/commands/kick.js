@@ -1,4 +1,4 @@
-module.exports.run = async (bot, message, args) => {
+exports.run = async(Discord, client, message, args, ops) => {
 
     if(!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send("**Vous devez être administrateur.**");
     if(args[0] == "help"){
